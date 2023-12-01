@@ -7,17 +7,21 @@ def convert_text_digits(input_string: str):
         input_string = input_string.replace(number, number[0] + str(i+1) + number[-1])
     return input_string
 
-with open(Path('input.txt')) as file:
-    lines = [convert_text_digits(line.rstrip()) for line in file]
+def do_main():
+    with open(Path('input.txt')) as file:
+        lines = [convert_text_digits(line.rstrip()) for line in file]
 
-result = []
-for line in lines:
-    digits = re.findall('\d', line)
-    first_val = digits[0]
-    last_val = digits[-1]
-    result.append(f'{first_val}{last_val}')
+    result = []
+    for line in lines:
+        digits = re.findall('\d', line)
+        first_val = digits[0]
+        last_val = digits[-1]
+        result.append(f'{first_val}{last_val}')
 
-sum = 0
-for num in result:
-    sum += int(num)
-print (sum)
+    sum = 0
+    for num in result:
+        sum += int(num)
+    print (sum)
+
+if __name__ == '__main__':
+    do_main()
