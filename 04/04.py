@@ -6,7 +6,7 @@ def do_main():
         lines = [line.rstrip() for line in file]
 
     point_sum = 0
-    cards = {i: 1 for i in range(len(lines))}
+    cards = [1 for _ in range(len(lines))]
 
     for line_index, line in enumerate(lines):
         match = re.search(r'([\d\s]+)\s\|\s([\d\s]+)', line)
@@ -26,7 +26,7 @@ def do_main():
         point_sum += points
 
     print(point_sum)
-    print(sum(cards.values()))
+    print(sum(cards))
 
 if __name__ == '__main__':
     do_main()
