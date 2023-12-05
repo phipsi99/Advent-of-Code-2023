@@ -2,6 +2,7 @@ from collections import OrderedDict
 from pathlib import Path
 from tqdm import tqdm
 import re
+import time
 
 def calculate(start, step, reversed_maps, maps):
     for location in tqdm(range(start, 10000000000000000, step)):
@@ -28,7 +29,7 @@ def calculate(start, step, reversed_maps, maps):
             if maps['seeds'][x * 2] <= curr_val <= maps['seeds'][x * 2] + maps['seeds'][x * 2 + 1]:
                 return location
 
-def do_main():
+def do_main(rate):
     with open(Path('input.txt')) as file:
         content = file.read()
         pattern = r'(\w+-to-\w+ map:|seeds:)'
@@ -49,11 +50,14 @@ def do_main():
     # reversed the maps, so it's running way less long. still brute forcing
     # That's why an approximation is used to first get close to the result with big steps
     # Then going back and iterating with single steps to find the correct solution
-    approximation_rate = 20000
+    approximation_rate = rate
     approx = calculate(0, approximation_rate, reversed_maps, maps)
     print(f'Approximation: {approx}')
     final = calculate(int(approx-approximation_rate), 1, reversed_maps, maps)
     print(f'Final: {final}')
 
+
 if __name__ == '__main__':
-    do_main()
+    start_time = time.time()
+    do_main(20400)
+    print("--- %s seconds ---" % (time.time() - start_time))
